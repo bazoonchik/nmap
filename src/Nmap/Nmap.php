@@ -105,6 +105,9 @@ class Nmap
             $options[] = '-Pn';
         }
 
+        $options[] = '-sU';
+        $options[] = '-sS';
+
         $options[] = '-oX';
         $command   = sprintf(
             "%s %s '%s' '%s'",
@@ -114,7 +117,7 @@ class Nmap
             $targets
         );
 
-        $this->executor->execute($command, $this->timeout);
+        $this->executor->execute('sudo ' . $command, $this->timeout);
 
         if (!file_exists($this->outputFile)) {
             throw new \RuntimeException(sprintf('Output file not found ("%s")', $this->outputFile));
